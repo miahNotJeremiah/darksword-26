@@ -12,28 +12,20 @@ Framework Python com CLI para entrega da cadeia de exploits **DarkSword** em ope
 ## Instalação
 
 ```bash
-cd DarkSword
+git clone https://github.com/bhideki/darksword.git
+cd darksword
 pip install -e .
-```
-
-Ou com dependências diretas:
-
-```bash
-pip install click rich httpx
-python -m darksword.cli --help
 ```
 
 ## Uso Rápido
 
 ```bash
-# 1. Sincronizar payloads do GitHub
-darksword sync
-
-# 2. Iniciar servidor de entrega
 darksword serve
-
-# 3. Acessar de um dispositivo iOS (Safari): http://<SEU_IP>:8080/
 ```
+
+Acesse de um dispositivo iOS (Safari): `http://<SEU_IP>:8080/`
+
+Payloads e kexploit ja incluidos. Para atualizar: `darksword sync` e `darksword sync-kexploit`
 
 ## Comandos CLI
 
