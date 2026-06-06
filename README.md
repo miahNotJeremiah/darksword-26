@@ -2,7 +2,8 @@
 
 Python framework with CLI for delivery of the **DarkSword** exploit chain. Based on the [DarkSword-RCE](https://github.com/htimesnine/DarkSword-RCE), [darksword-kexploit](https://github.com/opa334/darksword-kexploit) and [darksword](https://github.com/bhideki/darksword).
 
-> **Warning**: This repository is for educational purposes only.
+> [!Warning]
+>  This repository is for educational purposes only.
 
 ## References
 
